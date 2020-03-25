@@ -14,3 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+$router->get('/votes','VotesController@getVotes');
+$router->post('/vote','VotesController@postVote');
+$router->get('/config','ConfigController@getData');
+$router->get('/symbols/{symbol}','SymbolController@getSymbol');
