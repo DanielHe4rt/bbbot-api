@@ -13,4 +13,8 @@ class Data extends Model
     protected $fillable = [
         'symbol_id','width','height', 'grey', 'black', 'white'
     ];
+
+    protected $hidden = [
+        'created_at','updated_at','symbol_id','id'
+    ];
 }
