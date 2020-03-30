@@ -31,11 +31,16 @@ class VotesController extends Controller
         if ($data['success']) {
             $symbol = Symbol::where('name', $data['image'])->first();
             if (!$symbol) {
-               $symbol = Symbol::create(['name' => $data['image']]);
+                $symbol = Symbol::create(['name' => $data['image']]);
             }
             unset($data['image']);
-            $symbol->data()->create($data['data'],true);
+            $symbol->data()->create($data['data'], true);
         }
-        return response()->json($vote);
+        $stats = Vote::where('ip', $data['ip'])->count();
+        $total = Vote::count();
+        return response()->json([
+            'totalVotes' => $total,
+            'localVotes' => $stats
+        ]);
     }
 }
