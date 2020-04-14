@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Entities\Symbol;
 use App\Entities\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class VotesController extends Controller
 {
@@ -28,7 +29,9 @@ class VotesController extends Controller
         $data['ip'] = sha1("he4rtdevs" . $request->getClientIp());
 
         $vote = Vote::create($data);
+        $data['image'] = Str::slug($data['image']);
         if ($data['success']) {
+
             $symbol = Symbol::where('name', $data['image'])->first();
             if (!$symbol) {
                 $symbol = Symbol::create(['name' => $data['image']]);
